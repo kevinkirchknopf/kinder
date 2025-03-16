@@ -16,7 +16,7 @@ const Login = () => {
 
   return (
     <div className="auth-container">
-      <h2>Üdv újra! ❤️</h2>
+      <h2>Üdv újra!</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>E-mail cím</label>
