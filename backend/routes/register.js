@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.post("/register", async (req, res) => {
   try {
-    const { username, password, sex, age, bio, profile_pic } = req.body;
+    const { username, password, sex, age, bio } = req.body;
 
     // Kötelező mezők ellenőrzése
     if (!username || !password || !sex) {
@@ -41,8 +41,7 @@ router.post("/register", async (req, res) => {
         hashedPassword,
         sex,
         age || null,
-        bio || null,
-        profile_pic || null
+        bio || null
       ]
     );
 

@@ -1,23 +1,26 @@
-import jwt from "jsonwebtoken";
+import jwt from 'jsonwebtoken';
+import db from '../config/db.js';
 
-const protect = (req, res, next) => {
-    let token = req.headers.authorization;
+export const verifyRefreshToken = async (token) => {
+  try {
+    // 1. Token ellenőrzése
+    const decoded = jwt.verify(token, process.env.JWT_REFRESH_SECRET);
+    
+    // 2. Adatbázis ellenőrzés
+    const [rows] = await db.query(
+      `SELECT * FROM refresh_tokens 
+       WHERE token = ? 
+         AND user_id = ? 
+         AND revoked = FALSE 
+         AND expires_at > NOW()`,
+      [token, decoded.id]
+    );
 
-    if (!token || !token.startsWith("Bearer ")) {
-        return res.status(401).json({ message: "Nincs jogosultság!" });
-    }
-
-    try {
-        // Token ellenőrzése és dekódolása
-        token = token.split(" ")[1];
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-        // Felhasználói adatokat beállítjuk a kérésben
-        req.user = decoded;
-        next();
-    } catch (err) {
-        res.status(401).json({ message: "Érvénytelen token!" });
-    }
+    if (!rows.length) throw new Error('Invalid refresh token');
+    return decoded;
+  } catch (error) {
+    throw new Error('Refresh token invalidálódott');
+  }
 };
 
-export default protect;
+export default verifyRefreshToken;
