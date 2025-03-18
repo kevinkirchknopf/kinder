@@ -1,3 +1,4 @@
+/* MainScreen.css */
 html, body {
     margin: 0;
     padding: 0;
@@ -42,13 +43,10 @@ html, body {
     transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     will-change: transform;
     backface-visibility: hidden;
-    
-    /* Fix: Hide the cursor */
-    cursor: none;
     user-select: none;
     pointer-events: auto;
-    z-index: 2; /* Add this line */
-    cursor: default; /* Instead of 'none' */
+    z-index: 2;
+    cursor: grab;
 }
 
 .card {
@@ -70,13 +68,9 @@ html, body {
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
     overflow: hidden;
     transform: translateZ(0);
-    cursor: default; /* Replace 'none' with 'default' */
-    pointer-events: auto; /* Keep this */
-
-    /* Fix: Prevent cursor & selection */
-    cursor: none;
-    user-select: none;
+    cursor: grab;
     pointer-events: auto;
+    user-select: none;
 }
 
 .card::before {
@@ -90,7 +84,14 @@ html, body {
     transition: opacity 0.3s ease;
 }
 
-/* Fix for buttons */
+/* Gombok vízszintes elrendezése */
+.swipe-controls {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Térköz a gombok között */
+    margin-top: 20px;
+}
+
 .swipe-button {
     border: none;
     border-radius: 50%;
@@ -103,7 +104,22 @@ html, body {
     justify-content: center;
     transition: all 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-
-    /* Fix: No text selection */
     user-select: none;
+    background-color: white; /* Háttérszín hozzáadva */
+    color: #ff3366; /* Szöveg színe */
+}
+
+.swipe-button--left {
+    background-color: #ff6f61; /* Piros háttér */
+    color: white; /* Fehér szöveg */
+}
+
+.swipe-button--right {
+    background-color: #4caf50; /* Zöld háttér */
+    color: white; /* Fehér szöveg */
+}
+
+.swipe-button:disabled {
+    background-color: #ccc; /* Szürke háttér letiltott állapotban */
+    cursor: not-allowed;
 }
