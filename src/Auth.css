@@ -11,51 +11,73 @@ body {
 }
 
 .auth-container {
-  max-width: 420px;
+  max-width: 90%; /* Adjusted for smaller screens */
   width: 100%;
-  margin: 2rem auto;
-  padding: 2.5rem;
+  margin: 1rem auto; /* Reduced margin for mobile */
+  padding: 1.5rem; /* Reduced padding for mobile */
   background-color: #ffffff;
-  border-radius: 20px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-  position: relative; 
-  
-  user-select: none; 
-  outline: none; 
+  border-radius: 15px; /* Slightly smaller radius for mobile */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Softer shadow for mobile */
+  position: relative;
+  user-select: none;
+  outline: none;
 }
 
 .auth-container * {
-  user-select: text; 
+  user-select: text;
 }
-
 
 .auth-container h2 {
   text-align: center;
   color: #ff3366;
-  margin-bottom: 2rem;
-  font-size: 2.2rem;
+  margin-bottom: 1.5rem; /* Reduced margin for mobile */
+  font-size: 1.8rem; /* Smaller font size for mobile */
   font-weight: bold;
 }
 
+.step-indicator {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px; /* Reduced margin for mobile */
+  gap: 5px; /* Added gap between steps */
+}
+
+.step {
+  flex: 1;
+  text-align: center;
+  padding: 8px; /* Reduced padding for mobile */
+  border-bottom: 2px solid #ccc;
+  color: #ccc;
+  font-weight: 600;
+  font-size: 0.9rem; /* Smaller font size for mobile */
+  transition: all 0.3s ease;
+}
+
+.step.active {
+  border-bottom: 2px solid #ff3366;
+  color: #ff3366;
+}
+
 .form-group {
-  margin-bottom: 1.5rem;
-  width: 100%; 
+  margin-bottom: 1.2rem; /* Reduced margin for mobile */
+  width: 100%;
 }
 
 .form-group label {
   display: block;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.4rem; /* Reduced margin for mobile */
   color: #444;
   font-weight: 600;
+  font-size: 0.95rem; /* Smaller font size for mobile */
 }
 
 .form-group input,
 .form-group select {
-  width: 100%; 
-  padding: 0.85rem;
+  width: 100%;
+  padding: 0.75rem; /* Reduced padding for mobile */
   border: 2px solid #eee;
-  border-radius: 12px;
-  font-size: 1rem;
+  border-radius: 10px; /* Slightly smaller radius for mobile */
+  font-size: 0.95rem; /* Smaller font size for mobile */
   background-color: #f9f9f9;
   transition: border-color 0.3s ease, background-color 0.3s ease;
   box-sizing: border-box;
@@ -68,13 +90,12 @@ body {
   outline: none;
 }
 
-
 .form-group input[type="file"] {
-  padding: 0.6rem;
+  padding: 0.5rem; /* Reduced padding for mobile */
   background-color: #f9f9f9;
   border: 2px solid #eee;
-  border-radius: 12px;
-  font-size: 1rem;
+  border-radius: 10px; /* Slightly smaller radius for mobile */
+  font-size: 0.95rem; /* Smaller font size for mobile */
   transition: border-color 0.3s ease, background-color 0.3s ease;
   box-sizing: border-box;
 }
@@ -85,18 +106,25 @@ body {
   outline: none;
 }
 
+.form-navigation {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px; /* Reduced margin for mobile */
+  gap: 8px; /* Smaller gap for mobile */
+}
+
 .auth-button {
-  width: 100%;
-  padding: 1rem;
+  flex: 1;
+  padding: 0.9rem; /* Reduced padding for mobile */
   background: linear-gradient(135deg, #ff3366, #ff758c);
   color: white;
   border: none;
-  border-radius: 12px;
-  font-size: 1.1rem;
+  border-radius: 10px; /* Slightly smaller radius for mobile */
+  font-size: 1rem; /* Smaller font size for mobile */
   font-weight: bold;
   cursor: pointer;
   transition: background 0.3s ease, transform 0.2s ease;
-  box-shadow: 0 4px 12px rgba(255, 51, 102, 0.4);
+  box-shadow: 0 3px 8px rgba(255, 51, 102, 0.4); /* Softer shadow for mobile */
 }
 
 .auth-button:hover {
@@ -104,11 +132,18 @@ body {
   transform: translateY(-2px);
 }
 
+.auth-button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
 .auth-link {
   text-align: center;
-  margin-top: 1.8rem;
+  margin-top: 1.5rem; /* Reduced margin for mobile */
   color: #555;
-  font-size: 0.95rem;
+  font-size: 0.9rem; /* Smaller font size for mobile */
 }
 
 .auth-link a {
@@ -119,4 +154,47 @@ body {
 
 .auth-link a:hover {
   text-decoration: underline;
+}
+
+/* Media Queries for Extra Small Screens */
+@media (max-width: 480px) {
+  .auth-container {
+    padding: 1rem; /* Even smaller padding for very small screens */
+  }
+
+  .auth-container h2 {
+    font-size: 1.5rem; /* Smaller font size for very small screens */
+  }
+
+  .step {
+    font-size: 0.8rem; /* Smaller font size for very small screens */
+    padding: 6px; /* Smaller padding for very small screens */
+  }
+
+  .form-group label {
+    font-size: 0.9rem; /* Smaller font size for very small screens */
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group input[type="file"] {
+    font-size: 0.9rem; /* Smaller font size for very small screens */
+    padding: 0.65rem; /* Smaller padding for very small screens */
+  }
+
+  .auth-button {
+    padding: 0.8rem; /* Smaller padding for very small screens */
+    font-size: 0.95rem; /* Smaller font size for very small screens */
+  }
+
+  .auth-link {
+    font-size: 0.85rem; /* Smaller font size for very small screens */
+  }
+}
+.profile-preview {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-top: 10px;
 }

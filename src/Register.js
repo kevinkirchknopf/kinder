@@ -1,102 +1,84 @@
-// Register.js
-import React, { useState } from 'react';
-import './Auth.css';
+import React, { useState, useRef, useEffect } from "react";
+import TinderCard from "react-tinder-card";
+import "./MainScreen.css";
 
-const Register = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-    age: '',
-    gender: 'egyéb',
-    profilePicture: null,
-  });
+const MainScreen = () => {
+  const [people, setPeople] = useState([
+    { id: 1, name: "Anna, 24", url: "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=600" },
+    { id: 2, name: "John, 27", url: "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=600" },
+    { id: 3, name: "Sophia, 26", url: "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=600" }
+  ]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Regisztrációs logika
-    console.log(formData);
+  const [swipedRightList, setSwipedRightList] = useState([]);
+  
+  // Create an array of refs
+  const childRefs = useRef([]);
+
+  useEffect(() => {
+    // Recreate refs array when people change
+    childRefs.current = people.map(() => React.createRef());
+  }, [people]);
+
+  const onSwipe = (direction, person) => {
+    console.log(`You swiped ${direction} on ${person.name}`);
+    if (direction === "right") {
+      setSwipedRightList((prev) => [...prev, person]);
+    }
   };
 
-  const handleFileChange = (e) => {
-    setFormData({ ...formData, profilePicture: e.target.files[0] });
+  const onCardLeftScreen = (id) => {
+    console.log(`${id} left the screen`);
+    setPeople((prev) => prev.filter((person) => person.id !== id));
+  };
+
+  // Swipe function to manually trigger a swipe
+  const swipe = (dir) => {
+    const lastIndex = people.length - 1;
+    if (lastIndex >= 0 && childRefs.current[lastIndex].current) {
+      childRefs.current[lastIndex].current.swipe(dir);
+    }
   };
 
   return (
-    <div className="auth-container">
-      <h2>Találja meg szerelmi párját! 💘</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Profilkép</label>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleFileChange}
-          />
-        </div>
-
-        <div className="form-group">
-          <label>Teljes név</label>
-          <input
-            type="text"
-            value={formData.name}
-            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-            required
-          />
-        </div>
-
-        <div className="form-group">
-          <label>E-mail cím</label>
-          <input
-            type="email"
-            value={formData.email}
-            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-            required
-          />
-        </div>
-
-        <div className="form-group">
-          <label>Jelszó</label>
-          <input
-            type="password"
-            value={formData.password}
-            onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-            required
-          />
-        </div>
-
-        <div className="form-group">
-          <label>Életkor</label>
-          <input
-            type="number"
-            min="18"
-            max="99"
-            value={formData.age}
-            onChange={(e) => setFormData({ ...formData, age: e.target.value })}
-            required
-          />
-        </div>
-
-        <div className="form-group">
-          <label>Nem</label>
-          <select
-            value={formData.gender}
-            onChange={(e) => setFormData({ ...formData, gender: e.target.value })}
+    <div className="main-screen-container">
+      <h1>Találd meg a párod! 💘</h1>
+      <div className="card-container">
+        {people.map((person, index) => (
+          <TinderCard
+            ref={childRefs.current[index]}
+            key={person.id}
+            className="swipe"
+            onSwipe={(dir) => onSwipe(dir, person)}
+            onCardLeftScreen={() => onCardLeftScreen(person.id)}
+            preventSwipe={["up", "down"]}
+            flickOnSwipe={true} // Ensures swiping works smoothly
           >
-            <option value="férfi">Férfi</option>
-            <option value="nő">Nő</option>
-            <option value="egyéb">Egyéb</option>
-          </select>
-        </div>
+            <div className="card" style={{ backgroundImage: `url(${person.url})` }}>
+              <h3>{person.name}</h3>
+            </div>
+          </TinderCard>
+        ))}
+      </div>
 
-        <button type="submit" className="auth-button">Fiók létrehozása</button>
-      </form>
-
-      <p className="auth-link">
-        Már van fiókja? <a href="/login">Jelentkezzen be itt</a>
-      </p>
+      {/* Gombok vízszintes elrendezése */}
+      <div className="swipe-controls">
+        <button 
+          className="swipe-button swipe-button--left" 
+          onClick={() => swipe("left")}
+          disabled={people.length === 0}
+        >
+          ✕
+        </button>
+        <button 
+          className="swipe-button swipe-button--right" 
+          onClick={() => swipe("right")}
+          disabled={people.length === 0}
+        >
+          ♥
+        </button>
+      </div>
     </div>
   );
 };
 
-export default Register;
+export default MainScreen;

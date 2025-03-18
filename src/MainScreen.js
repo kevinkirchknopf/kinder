@@ -6,7 +6,7 @@ const MainScreen = () => {
   const [people, setPeople] = useState([
     { id: 1, name: "Anna, 24", url: "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=600" },
     { id: 2, name: "John, 27", url: "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=600" },
-    { id: 3, name: "Sophia, 26", url: "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=600" },
+    { id: 3, name: "Sophia, 26", url: "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=600" }
   ]);
 
   const [swipedRightList, setSwipedRightList] = useState([]);
