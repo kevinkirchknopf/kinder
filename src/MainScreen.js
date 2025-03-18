@@ -11,12 +11,12 @@ const MainScreen = () => {
 
   const [swipedRightList, setSwipedRightList] = useState([]);
   
-  // Create an array of refs
+  // Referenciák tömbje
   const childRefs = useRef([]);
 
+  // Referenciák frissítése, amikor a `people` változik
   useEffect(() => {
-    // Recreate refs array when people change
-    childRefs.current = people.map(() => React.createRef());
+    childRefs.current = people.map((_, index) => childRefs.current[index] || React.createRef());
   }, [people]);
 
   const onSwipe = (direction, person) => {
@@ -31,11 +31,24 @@ const MainScreen = () => {
     setPeople((prev) => prev.filter((person) => person.id !== id));
   };
 
-  // Swipe function to manually trigger a swipe
+  // Manuális swipe függvény
   const swipe = (dir) => {
+    
+    // 1. Az utolsó kártya indexének meghatározása
     const lastIndex = people.length - 1;
-    if (lastIndex >= 0 && childRefs.current[lastIndex].current) {
-      childRefs.current[lastIndex].current.swipe(dir);
+
+    // 2. Ellenőrizzük, hogy van-e még kártya
+    if (lastIndex >= 0) {
+      // 3. Az utolsó kártyához tartozó referencia lekérése
+      const lastCardRef = childRefs.current[lastIndex];
+      
+
+      // 4. Ellenőrizzük, hogy a referencia létezik és rendelkezik `current` tulajdonsággal
+      if (lastCardRef?.current) {
+        // 5. Swipe végrehajtása az utolsó kártyán
+        lastCardRef.current.swipe(dir);
+        console.log("asdhnawijlhkdk")
+      }
     }
   };
 
@@ -45,13 +58,13 @@ const MainScreen = () => {
       <div className="card-container">
         {people.map((person, index) => (
           <TinderCard
-            ref={childRefs.current[index]}
+            ref={childRefs.current[index]} // Referencia hozzárendelése
             key={person.id}
             className="swipe"
             onSwipe={(dir) => onSwipe(dir, person)}
             onCardLeftScreen={() => onCardLeftScreen(person.id)}
             preventSwipe={["up", "down"]}
-            flickOnSwipe={true} // Ensures swiping works smoothly
+            flickOnSwipe={true} // Sima swipe-ot biztosít
           >
             <div className="card" style={{ backgroundImage: `url(${person.url})` }}>
               <h3>{person.name}</h3>
@@ -60,6 +73,7 @@ const MainScreen = () => {
         ))}
       </div>
 
+      {/* Gombok vízszintes elrendezése */}
       <div className="swipe-controls">
         <button 
           className="swipe-button swipe-button--left" 
