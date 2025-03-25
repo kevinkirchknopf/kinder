@@ -9,7 +9,7 @@ const ChatComponent = () => {
   const partners = [
     { 
       id: 1, 
-      name: 'John Doe', 
+      name: 'John Doee', 
       avatar: 'https://i.pravatar.cc/150?img=1',
       online: true, 
       lastMessage: 'Hey there!' 
