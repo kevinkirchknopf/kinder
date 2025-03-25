@@ -8,7 +8,7 @@ import ProtectedRoute from './ProtectedRoute';
 import { AuthProvider } from './Context/AuthContext';
 import { BrowserRouter as Router, Routes, Route, Navigate, BrowserRouter } from 'react-router-dom';
 import Navbar from './Components/Navbar';
-
+import Chat from './Components/Chat'
 
 function App() {
   return(
@@ -16,6 +16,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Navigate to="/login" />} />
+          <Route path="/chat" element={<Chat  />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route element={<ProtectedRoute />}>
