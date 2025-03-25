@@ -54,50 +54,72 @@
     margin-bottom: 15px;
   }
   
-  .profile-preview {
-    width: 120px;
-    height: 120px;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 3px solid #ff3366;
-    box-shadow: 0 4px 12px rgba(255, 51, 102, 0.3);
-    margin-bottom: 15px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
-  }
-  
-  .profile-preview:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 16px rgba(255, 51, 102, 0.4);
-  }
-  
-  .profile-placeholder:hover {
-    background-color: #ffe6ea;
-    border-color: #ff204e;
-  }
-  
-  .form-group.center input[type="file"] {
-    display: none; /* Elrejtjük az alapértelmezett fájlfeltöltő gombot */
-  }
-  
-  .file-upload-button {
-    display: inline-block;
-    padding: 10px 20px;
-    background: linear-gradient(135deg, #ff3366, #ff758c);
-    color: white;
-    border: none;
-    border-radius: 10px;
-    font-size: 1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 3px 8px rgba(255, 51, 102, 0.4);
-  }
-  
-  .file-upload-button:hover {
-    background: linear-gradient(135deg, #ff204e, #ff5c76);
-    transform: translateY(-2px);
-  }
+  /* Profilkép előnézetének stílusa */
+.profile-preview {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid #ff3366;
+  box-shadow: 0 4px 12px rgba(255, 51, 102, 0.3);
+  margin-bottom: 15px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.profile-preview:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(255, 51, 102, 0.4);
+}
+
+/* Placeholder stílusa, ha nincs kép kiválasztva */
+.profile-placeholder {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background-color: #f9f9f9;
+  border: 3px dashed #ff3366;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ff3366;
+  font-weight: bold;
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.profile-placeholder:hover {
+  background-color: #ffe6ea;
+  border-color: #ff204e;
+}
+
+/* Fájlfeltöltő input stílusa */
+.form-group.center input[type="file"] {
+  display: none; /* Elrejtjük az alapértelmezett fájlfeltöltő gombot */
+}
+
+/* Fájlfeltöltő gomb stílusa (ha szükséges) */
+.file-upload-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #ff3366, #ff758c);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 3px 8px rgba(255, 51, 102, 0.4);
+}
+
+.file-upload-button:hover {
+  background: linear-gradient(135deg, #ff204e, #ff5c76);
+  transform: translateY(-2px);
+}
   
   .profile-placeholder {
     width: 120px;

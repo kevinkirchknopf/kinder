@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import TinderCard from "react-tinder-card";
-import "./MainScreen.css";
+import "../Styles/MainScreen.css";
+import { jwtDecode } from "jwt-decode";
 
 const MainScreen = () => {
   const [people, setPeople] = useState([
@@ -9,7 +10,22 @@ const MainScreen = () => {
     { id: 3, name: "Sophia, 26", url: "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=600" }
   ]);
 
+  const [userData, setUserData]=useState({});
+
   const [swipedRightList, setSwipedRightList] = useState([]);
+  
+
+useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) {
+      const decoded = jwtDecode(accessToken);
+     
+      setUserData(decoded);
+    }
+  }, []);
+
+
+
   
   // Referenciák tömbje
   const childRefs = useRef([]);
@@ -50,10 +66,12 @@ const MainScreen = () => {
         console.log("asdhnawijlhkdk")
       }
     }
+  
   };
 
   return (
     <div className="main-screen-container">
+    <h1>Üdv Újra {userData.username ? userData.username : ""}!</h1>
       <h1>Találd meg a párod! 💘</h1>
       <div className="card-container">
         {people.map((person, index) => (
