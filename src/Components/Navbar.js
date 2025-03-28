@@ -17,15 +17,42 @@ const Navbar = ({ onLogout }) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  const toggleMenu = () => {
+    setIsMenuOpen((prev) => !prev);
+  };
+
   return (
     <nav className="navbar">
-      <div className="nav-links">
-        <Link to="/mainScreen" className="nav-item">Főoldal</Link>
-        <Link to="/profile" className="nav-item">Profil</Link>
-        <Link to="/messages" className="nav-item">Üzenetek</Link>
-        <button onClick={onLogout} className="nav-item logout-button">
-          Kijelentkezés
+      <div className="navbar-container">
+        <div className="navbar-logo">
+          <Link to="/mainScreen">Kinder</Link>
+        </div>
+        <button className="menu-toggle" onClick={toggleMenu}>
+          ☰
         </button>
+        <div
+          className={`nav-links ${isMenuOpen ? "open" : ""}`}
+          ref={menuRef}
+        >
+          <Link to="/mainScreen" className="nav-item" onClick={() => setIsMenuOpen(false)}>
+            Főoldal
+          </Link>
+          <Link to="/profile" className="nav-item" onClick={() => setIsMenuOpen(false)}>
+            Profil
+          </Link>
+          <Link to="/messages" className="nav-item" onClick={() => setIsMenuOpen(false)}>
+            Üzenetek
+          </Link>
+          <button
+            onClick={() => {
+              onLogout();
+              setIsMenuOpen(false);
+            }}
+            className="nav-item logout-button"
+          >
+            Kijelentkezés
+          </button>
+        </div>
       </div>
     </nav>
   );
