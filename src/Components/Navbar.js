@@ -30,7 +30,46 @@ const Navbar = ({ onLogout }) => {
     onLogout();
   };
 
+  const toggleMenu = () => {
+    setIsMenuOpen((prev) => !prev);
+  };
+
   return (
+<<<<<<< HEAD
+    <nav className="navbar">
+      <div className="navbar-container">
+        <div className="navbar-logo">
+          <Link to="/mainScreen">Kinder</Link>
+        </div>
+        <button className="menu-toggle" onClick={toggleMenu}>
+          ☰
+        </button>
+        <div
+          className={`nav-links ${isMenuOpen ? "open" : ""}`}
+          ref={menuRef}
+        >
+          <Link to="/mainScreen" className="nav-item" onClick={() => setIsMenuOpen(false)}>
+            Főoldal
+          </Link>
+          <Link to="/profile" className="nav-item" onClick={() => setIsMenuOpen(false)}>
+            Profil
+          </Link>
+          <Link to="/messages" className="nav-item" onClick={() => setIsMenuOpen(false)}>
+            Üzenetek
+          </Link>
+          <button
+            onClick={() => {
+              onLogout();
+              setIsMenuOpen(false);
+            }}
+            className="nav-item logout-button"
+          >
+            Kijelentkezés
+          </button>
+        </div>
+      </div>
+    </nav>
+=======
     <div className="user-menu" ref={userMenuRef}>
           <button 
             className="user-icon" 
@@ -46,6 +85,7 @@ const Navbar = ({ onLogout }) => {
             </div>
           )}
         </div>
+>>>>>>> 06b47764f60961b2db9ae4a2ff1a8f2022d93ce8
   );
 };
 
